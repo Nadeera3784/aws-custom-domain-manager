@@ -1,0 +1,9 @@
+.vscode
+.DS_Store
+.serverless
+node_modules
+src/layer/pip
+.venv
+__pycache__
+*.log
+!src/layer/requirements.txt

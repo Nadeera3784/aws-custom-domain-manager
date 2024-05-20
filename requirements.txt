@@ -1,0 +1,5 @@
+moto
+boto3
+webdriver-manager
+pytest
+selenium==2.53.6

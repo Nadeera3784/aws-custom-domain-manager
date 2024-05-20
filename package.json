@@ -1,0 +1,9 @@
+{
+  "name": "custom-domain-manager",
+  "description": "aws custom domain manager",
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-add-api-key": "^4.2.0"
+  }
+}

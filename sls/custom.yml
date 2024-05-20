@@ -1,0 +1,14 @@
+# levels log Cloud Watch
+LOG_LEVEL:
+    dev: 'DEBUG'
+    test: 'INFO'
+    prod: 'INFO'
+
+# Custom sulfix for infra resources unique names
+customSulfix: ${self:provider.region}-${self:provider.stage}
+
+apiKeys:
+    prod:
+      - name: custom-domain-${env:AWS_ENV}
+    dev:
+      - name: custom-domain-${env:AWS_ENV}        

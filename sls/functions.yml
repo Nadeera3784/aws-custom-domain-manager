@@ -1,0 +1,38 @@
+acm-certificate-requester:
+  handler: src/acm-certificate-requester.lambda_handler
+  name: acm-certificate-requester-${self:custom.customSulfix}
+  runtime: python3.8
+  memorySize: 128
+  timeout: 30
+  role: customDomainRole
+  package:
+    include:
+      - src/acm-certificate-requester.py
+  events:
+    - http:
+        path: custom-domain-manager/certificate
+        method: post
+        cors: true
+        private: true
+
+  layers:
+    - { Ref: PythonLambdaLayer }
+      
+cloudfront-custom-domain:
+  handler: src/cloudfront-custom-domain.lambda_handler
+  name: cloudfront-custom-domain-${self:custom.customSulfix}
+  runtime: python3.8
+  memorySize: 128
+  timeout: 30
+  role: customDomainRole
+  package:
+    include:
+      - src/cloudfront-custom-domain.py
+  events:
+    - http:
+        path: custom-domain-manager/cloudfront
+        method: post
+        cors: true
+        private: true
+  layers:
+    - { Ref: PythonLambdaLayer }      

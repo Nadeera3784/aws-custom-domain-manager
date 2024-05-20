@@ -1,0 +1,41 @@
+service: custom-domain-manager-${env:AWS_ENV}
+provider:
+  name: aws
+  runtime: python3.8
+  region: ${env:AWS_DEFAULT_REGION}
+  stage: ${env:AWS_ENV}
+  logRetentionInDays: 30
+  versionFunctions: false
+  environment:
+    S3_BUCKET: custom-domain-manager-${self:custom.customSulfix}
+    LOG_LEVEL: ${self:custom.LOG_LEVEL.${self:provider.stage}}
+  s3:
+    s3bucket:
+      name: ${self:provider.environment.S3_BUCKET}
+
+package:
+  individually: true
+  excludeDevDependencies: true
+  exclude:
+    - .*/**
+    - node_modules/**
+    - sls/**
+    - src/**
+    - .gitlab-ci.yml
+    - Makefile
+    - package**
+    - README.md
+
+custom: ${file(./sls/custom.yml)}
+
+functions: ${file(./sls/functions.yml)}
+
+resources: ${file(./sls/resources.yml)}
+
+layers:
+  python:
+    name: mylayer-${self:custom.customSulfix}
+    path: ./src/layer/pip/
+
+plugins:
+  - serverless-add-api-key
