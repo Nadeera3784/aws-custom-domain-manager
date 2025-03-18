@@ -2,8 +2,7 @@ version: '3.2'
 
 services:
   google-auth:
-    ##cevoaustralia
-    image: dnxsolutions/aws-google-auth
+    image: cevoaustralia/aws-google-auth
     env_file: .env
     volumes:
       - ./.env.auth:/work/.env
